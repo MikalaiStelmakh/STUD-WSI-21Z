@@ -20,22 +20,16 @@ def steepest_descent(function, df_x, df_y, starting_point, step, iterations, eps
         Partial derivative of f(x, y) with respect to y.
     starting_point: list
         Initial guess for a solution f(x, y)=0.
-    step: float
-        Pass
-    ax: plt.axes
-        Pass
-    point_radius: float
-        Pass
-    last_point_radius: float
-        Pass
-    point_color: np.color
-        Pass
-    last_point_color: np.color
-        Pass
     iterations: integer
         Maximum number of iterations of Newton's method.
     epsilon: number
         Stopping criteria.
+    step: float
+    ax: plt.axes
+    point_radius: float
+    last_point_radius: float
+    point_color: np.color
+    last_point_color: np.color
 
     Returns
     -------
@@ -45,7 +39,7 @@ def steepest_descent(function, df_x, df_y, starting_point, step, iterations, eps
     point = starting_point
     for _ in range(iterations):
         if function(point) > epsilon:
-            gradient = np.array([df_x(point), df_y(point)])
+            gradient = np.array([df_x(point), df_y(point)], dtype='double')
             point -= step*gradient
             if ax:
                 add_point(ax, *point, function(point), point_color, point_radius)
@@ -76,22 +70,16 @@ def newton_method(function, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y,
         Partial derivative of df_y(x, y) with respect to x.
     starting_point: list
         Initial guess for a solution f(x, y)=0.
-    step: float
-        Pass
-    ax: plt.axes
-        Pass
-    point_radius: float
-        Pass
-    last_point_radius: float
-        Pass
-    point_color: np.color
-        Pass
-    last_point_color: np.color
-        Pass
     iterations: integer
         Maximum number of iterations of Newton's method.
     epsilon: number
         Stopping criteria.
+    step: float
+    ax: plt.axes
+    point_radius: float
+    last_point_radius: float
+    point_color: np.color
+    last_point_color: np.color
 
     Returns
     -------
