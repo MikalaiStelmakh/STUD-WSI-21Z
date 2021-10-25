@@ -12,7 +12,6 @@ def steepest_descent(function, df_x, df_y, starting_point, step, epsilon):
             gradient = np.array([df_x(point), df_y(point)], dtype='double')
             point -= step*gradient
         else:
-            iterations -= 1
             break
     return iterations
 
@@ -31,7 +30,6 @@ def newton_method(function, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y,
             d = hessian_inv.dot(gradient)
             point -= step*d
         else:
-            iterations -= 1
             break
     return iterations
 
@@ -56,8 +54,8 @@ if __name__ == "__main__":
     def df_x_df_y(point):
         return -400*point[0]
 
-    Xs = [-4, -2, 0, 2, 4]
-    Ys = [-4, -2, 0, 2, 4]
+    Xs = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+    Ys = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
     POINTS = list(product(Xs, Ys))
     # POINTS = [(-1, -1), (2, 2)]
     epsilon = 1e-12
