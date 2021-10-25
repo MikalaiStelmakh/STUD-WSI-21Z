@@ -37,12 +37,16 @@ def steepest_descent(function, df_x, df_y, starting_point, step, iterations, eps
         Found point.
     '''
     point = starting_point
+    if ax:
+        add_point(ax, *point, function(point), point_color, point_radius)
     for _ in range(iterations):
         if function(point) > epsilon:
             gradient = np.array([df_x(point), df_y(point)], dtype='double')
             point -= step*gradient
             if ax:
                 add_point(ax, *point, function(point), point_color, point_radius)
+        else:
+            break
     if ax:
         add_point(ax, *point, function(point), last_point_color, last_point_radius)
     return point
@@ -87,6 +91,8 @@ def newton_method(function, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y,
         Found point.
     '''
     point = starting_point
+    if ax:
+        add_point(ax, *point, function(point), point_color, point_radius)
     for _ in range(iterations):
         if function(point) > epsilon:
             hessian = np.array([[df_x_df_x(point), df_x_df_y(point)],
@@ -97,6 +103,8 @@ def newton_method(function, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y,
             point -= step*d
             if ax:
                 add_point(ax, *point, function(point), point_color, point_radius)
+        else:
+            break
     if ax:
         add_point(ax, *point, function(point), last_point_color, last_point_radius)
     return point
