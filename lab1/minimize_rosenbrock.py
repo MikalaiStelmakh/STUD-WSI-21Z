@@ -111,6 +111,7 @@ def newton_method(function, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y,
 
 
 def add_point(ax, x, y, z, color=None, radius=0.05):
+    '''Add a point in a shape of ellipse to graph.'''
     xy_len, z_len = ax.get_figure().get_size_inches()
     axis_length = [x[1] - x[0] for x in [ax.get_xbound(), ax.get_ybound(), ax.get_zbound()]]
     axis_rotation = {'z': ((x, y, z), axis_length[1]/axis_length[0]),

@@ -10,9 +10,9 @@ def readFromJson(path):
 
 
 if __name__ == "__main__":
-    METHOD = "steepest_descent_method"
+    METHOD = "newton_method"
     # METHOD = "newton_method"
-    data = readFromJson(".benchmarks/data.json")[METHOD]
+    data = readFromJson(".benchmarks/data4.json")[METHOD]
 
     fig, ax = plt.subplots()
     Xs = [benchmark["point"][0] for benchmark in data["benchmarks"]]
@@ -31,9 +31,15 @@ if __name__ == "__main__":
         return [l[i:i+size] for i in range(0, len(l), size)]
 
     if METHOD == "steepest_descent_method":
-        for index, _ in enumerate(iterations):
-            iterations[index] /= 10000
-            iterations[index] = round(iterations[index], 1)
+        for index, element in enumerate(iterations):
+            if element:
+                iterations[index] /= 10000
+                iterations[index] = round(iterations[index], 1)
+
+    for index, element in enumerate(iterations):
+        if not element:
+            iterations[index] = 0
+
     iterations = np.array(chunks(iterations, width))
 
     im = ax.imshow(iterations)
@@ -51,8 +57,9 @@ if __name__ == "__main__":
 
     for i in range(len(Ys)):
         for j in range(len(Xs)):
-            text = ax.text(j, i, iterations[i, j],
+            text = ax.text(j, i, iterations[i, j] if iterations[i, j] != 0 else "-",
                            ha="center", va="center", color="w")
+    ax.text(6, 6, 0, ha="center", va="center", color="w")
     ax.set_title("Iterations")
     fig.tight_layout()
-    plt.savefig("graphs/" + "iterations_" + METHOD)
+    plt.savefig("graphs/" + "iterations_" + METHOD + "_betta_" + "1,5")

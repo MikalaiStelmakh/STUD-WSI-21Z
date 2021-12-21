@@ -1,0 +1,272 @@
+{
+  "Benchmarks": [
+    {
+      "Board height": 5,
+      "Board width": 5,
+      "Depths": [
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 30,
+            "Player2": 16
+          }
+        },
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 12,
+            "Player2": 13
+          }
+        },
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 17,
+            "Player2": 21
+          }
+        },
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 22,
+            "Player2": 20
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 44,
+            "Player2": 1
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 0,
+            "Player2": 0
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 13,
+            "Player2": 0
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 29,
+            "Player2": 0
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 34,
+            "Player2": 9
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 15,
+            "Player2": 6
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 30,
+            "Player2": 5
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 34,
+            "Player2": 3
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 25,
+            "Player2": 17
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 8,
+            "Player2": 13
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 19,
+            "Player2": 20
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 22,
+            "Player2": 21
+          }
+        }
+      ]
+    },
+    {
+      "Board height": 5,
+      "Board width": 6,
+      "Depths": [
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 24,
+            "Player2": 26
+          }
+        },
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 18,
+            "Player2": 17
+          }
+        },
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 21,
+            "Player2": 22
+          }
+        },
+        {
+          "Player 1 depth:": 0,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 22,
+            "Player2": 22
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 48,
+            "Player2": 0
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 1,
+            "Player2": 0
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 33,
+            "Player2": 0
+          }
+        },
+        {
+          "Player 1 depth:": 1,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 39,
+            "Player2": 1
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 38,
+            "Player2": 12
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 23,
+            "Player2": 3
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 24,
+            "Player2": 7
+          }
+        },
+        {
+          "Player 1 depth:": 2,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 35,
+            "Player2": 5
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 0,
+          "Score": {
+            "Player1": 36,
+            "Player2": 13
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 1,
+          "Score": {
+            "Player1": 23,
+            "Player2": 11
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 2,
+          "Score": {
+            "Player1": 24,
+            "Player2": 20
+          }
+        },
+        {
+          "Player 1 depth:": 3,
+          "Player 2 depth": 3,
+          "Score": {
+            "Player1": 22,
+            "Player2": 24
+          }
+        }
+      ]
+    }
+  ]
+}

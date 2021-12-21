@@ -10,9 +10,15 @@ def steepest_descent(function, df_x, df_y, starting_point, step, epsilon):
         if function(point) > epsilon:
             iterations += 1
             gradient = np.array([df_x(point), df_y(point)], dtype='double')
+            previous_point = np.array(point)
             point -= step*gradient
+            if np.array_equal(previous_point, point):
+                return None
         else:
             break
+        if function(point) == np.Inf:
+            return None
+
     return iterations
 
 
@@ -20,17 +26,31 @@ def newton_method(function, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y,
                   starting_point, step, epsilon):
     iterations = 0
     point = starting_point
+    previous_points = []
     while True:
-        if function(point) > epsilon:
-            iterations += 1
-            hessian = np.array([[df_x_df_x(point), df_x_df_y(point)],
-                                [df_x_df_y(point), df_y_df_y(point)]])
-            gradient = np.array([df_x(point), df_y(point)])
-            hessian_inv = np.linalg.inv(hessian)
-            d = hessian_inv.dot(gradient)
-            point -= step*d
-        else:
-            break
+        try:
+            if function(point) > epsilon:
+                iterations += 1
+                hessian = np.array([[df_x_df_x(point), df_x_df_y(point)],
+                                    [df_x_df_y(point), df_y_df_y(point)]])
+                gradient = np.array([df_x(point), df_y(point)])
+                hessian_inv = np.linalg.inv(hessian)
+                d = hessian_inv.dot(gradient)
+                if len(previous_points) == 3:
+                    previous_points.pop(0)
+                    previous_points.append(function(point))
+                else:
+                    previous_points.append(function(point))
+                point -= step*d
+                if function(point) in previous_points:
+                    return None
+            else:
+                break
+            if function(point) == np.Inf:
+                return None
+        except np.linalg.LinAlgError:
+            return None
+
     return iterations
 
 
@@ -59,8 +79,8 @@ if __name__ == "__main__":
     POINTS = list(product(Xs, Ys))
     # POINTS = [(-1, -1), (2, 2)]
     epsilon = 1e-12
-    steepest_descent_step = 0.0001
-    newton_step = 1
+    steepest_descent_step = 0.00001
+    newton_step = 1.5
 
     result = {
         "steepest_descent_method": {"benchmarks": [{} for _ in POINTS]},
@@ -70,10 +90,10 @@ if __name__ == "__main__":
         iterations = steepest_descent(f, df_x, df_y, current_point, steepest_descent_step, epsilon)
         result["steepest_descent_method"]["benchmarks"][index]["point"] = current_point
         result["steepest_descent_method"]["benchmarks"][index]["iterations"] = iterations
-        iterations = newton_method(f, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y, current_point, newton_step, epsilon)
-        result["newton_method"]["benchmarks"][index]["point"] = current_point
-        result["newton_method"]["benchmarks"][index]["iterations"] = iterations
-    with open('.benchmarks/data.json', 'w') as fp:
+        # iterations = newton_method(f, df_x, df_y, df_x_df_x, df_y_df_y, df_x_df_y, current_point, newton_step, epsilon)
+        # result["newton_method"]["benchmarks"][index]["point"] = current_point
+        # result["newton_method"]["benchmarks"][index]["iterations"] = iterations
+    with open('.benchmarks/data5.json', 'w') as fp:
         json.dump(result, fp, indent=2)
 
 
