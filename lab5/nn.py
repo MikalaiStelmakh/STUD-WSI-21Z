@@ -35,10 +35,11 @@ def forward(layers: list[Layer], inputs: ScalarOrArray) -> list[ScalarOrArray]:
     Returns these modified inputs as an outputs."""
     # Outputs of the input layer
     layers_outputs = [sigmoid(layers[0].biases + layers[0].weights @ inputs)]
+
     # Outputs of all the hidden layers
-    layers_outputs += [sigmoid(biases + weights @ layers_outputs[i])
-                       for i, (biases, weights) in enumerate([(layer.biases, layer.weights) for layer in layers[1:-1]])
-                       ]
+    for i, (biases, weights) in enumerate([(layer.biases, layer.weights) for layer in layers[1:-1]]):
+        layers_outputs += [sigmoid(biases + weights @ layers_outputs[i])]
+
     # Outputs of the output layer
     layers_outputs.append(softmax(layers[-1].biases + layers[-1].weights @ layers_outputs[-1]))
     return layers_outputs
@@ -95,8 +96,8 @@ def run(inputs_batch: ScalarOrArray, labels_batch: ScalarOrArray,
 if __name__ == "__main__":
     images, labels = get_mnist()
 
-    input_layer = Layer(784, 40)
-    hidden_layer1 = Layer(40, 20)
+    input_layer = Layer(784, 20)
+    hidden_layer1 = Layer(20, 20)
     hidden_layer2 = Layer(20, 10)
 
     learn_rate = 0.01
