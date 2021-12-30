@@ -3,9 +3,9 @@ from data import get_mnist
 import numpy as np
 import numpy.typing as npt
 import matplotlib.pyplot as plt
+import argparse
 
 
-np.random.seed(0)
 
 NDArrayFloat = npt.NDArray[np.floating]
 ScalarOrArray = TypeVar("ScalarOrArray", float, np.floating, NDArrayFloat)
@@ -17,15 +17,15 @@ class Layer:
         self.biases: ScalarOrArray = np.zeros((n_outputs, 1))
 
 
-def sigmoid(x):
+def sigmoid(x: ScalarOrArray | float) -> ScalarOrArray | float:
     return 1 / (1+np.exp(-x))
 
 
-def sigmoid_derivative(y):
+def sigmoid_derivative(y: ScalarOrArray | float) -> ScalarOrArray | float:
     return y * (1 - y)
 
 
-def softmax(x):
+def softmax(x: ScalarOrArray) -> ScalarOrArray:
     return np.exp(x)/sum(np.exp(x))
 
 
@@ -48,7 +48,9 @@ def forward(layers: list[Layer], inputs: ScalarOrArray) -> list[ScalarOrArray]:
 def backward(layers: list[Layer], layers_outputs: list[ScalarOrArray],
              inputs: ScalarOrArray, labels: ScalarOrArray, learn_rate: float) \
              -> list[Layer]:
-
+    """Backpropagation.
+    Modifies weights and biases of each layer based on the contribution to the error value.
+    Returns modified layer objects."""
     # Modifying weights and biases of the output layer
     delta = layers_outputs[-1] - labels
     layers[-1].weights += -learn_rate * delta @ np.transpose(layers_outputs[-2])
@@ -71,6 +73,7 @@ def backward(layers: list[Layer], layers_outputs: list[ScalarOrArray],
 
 
 def calculate_accuracy(predictions: list[int], labels: list[int], n_decimals: int = 2) -> float:
+    """Calculates accuracy of the prediction."""
     correct = list(filter(
             lambda elem: elem[0] == np.argmax(elem[1]), zip(predictions, labels)
             ))
@@ -82,25 +85,84 @@ def run(inputs_batch: ScalarOrArray, labels_batch: ScalarOrArray,
     for _ in range(epochs):
         predictions = []
         for inputs, labels in zip(inputs_batch, labels_batch):
-            inputs.shape += (1,)
+            # Convert vector to matrix
             labels.shape += (1,)
+
+            # Make predictions
             layers_outputs = forward(layers, inputs)
             predictions.append(np.argmax(layers_outputs[-1]))
+
+            # Train neural netrowk
             layers = backward(
                 layers, layers_outputs, inputs, labels, learn_rate
                 )
-        print(f"Acc: {calculate_accuracy(predictions, labels_batch, 2)}%")
+            # print(f"Acc: {calculate_accuracy(predictions, labels_batch, 2)}%")
+        # show_random_bad_prediction(inputs_batch, predictions, labels_batch)
+        # show_random_good_prediction(inputs_batch, predictions, labels_batch)
     return predictions
 
 
+def show_random_bad_prediction(images, predictions, labels):
+    bad_lst = []
+    for i, (prediction, label) in enumerate(zip(predictions, labels)):
+        if prediction != np.argmax(label):
+            bad_lst.append((i, prediction, np.argmax(label)))
+
+    bad = bad_lst[np.random.randint(len(bad_lst))]
+    index = bad[0]
+    prediction = bad[1]
+    label = bad[2]
+    img = images[index]
+
+    plt.imshow(img.reshape(28, 28), cmap="Greys")
+    plt.title(f"Prediction: {prediction}, Label: {label}")
+    plt.show()
+
+
+def show_random_good_prediction(images, predictions, labels):
+    good_lst = []
+    for i, (prediction, label) in enumerate(zip(predictions, labels)):
+        if prediction == np.argmax(label):
+            good_lst.append((i, prediction, np.argmax(label)))
+
+    good = good_lst[np.random.randint(len(good_lst))]
+    index = good[0]
+    prediction = good[1]
+    label = good[2]
+    img = images[index]
+
+    plt.imshow(img.reshape(28, 28), cmap="Greys")
+    plt.title(f"Prediction: {prediction}, Label: {label}")
+    plt.show()
+
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description=
+        """Recognize hand-written digits, using MNIST data set."""
+        )
+    parser.add_argument('-n', action='append', type=int,
+                        help='number of neurons in this hidden layer.',
+                        required=True)
+    parser.add_argument('--learn_rate', type=float, default=0.01,
+                        help='learn rate of the neural network (default: 0.01).')
+    parser.add_argument('--epochs', type=int, default=3,
+                        help='epochs of the neural network (default: 3).')
+    args = parser.parse_args()
+
     images, labels = get_mnist()
 
-    input_layer = Layer(784, 20)
-    hidden_layer1 = Layer(20, 20)
-    hidden_layer2 = Layer(20, 10)
+    # Create input layer and append it to list of layers
+    input_layer = Layer(784, args.n[0])
+    layers = [input_layer]
+    # Create hidden layers and append them to list of layers
+    if len(args.n) > 1:
+        for i, _ in enumerate(args.n[:-1]):
+            layers.append(Layer(args.n[i], args.n[i+1]))
 
-    learn_rate = 0.01
-    epochs = 5
-    layers = [input_layer, hidden_layer1, hidden_layer2]
-    run(images, labels, layers, epochs, learn_rate)
+    # Create output layer and append it to list of layers
+    output_layer = Layer(args.n[-1], 10)
+    layers.append(output_layer)
+
+    predictions = run(images, labels, layers, args.epochs, args.learn_rate)
+    print(calculate_accuracy(predictions, labels))
