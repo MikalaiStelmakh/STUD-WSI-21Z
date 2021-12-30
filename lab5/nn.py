@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import argparse
 
 
-
 NDArrayFloat = npt.NDArray[np.floating]
 ScalarOrArray = TypeVar("ScalarOrArray", float, np.floating, NDArrayFloat)
 
@@ -96,9 +95,6 @@ def run(inputs_batch: ScalarOrArray, labels_batch: ScalarOrArray,
             layers = backward(
                 layers, layers_outputs, inputs, labels, learn_rate
                 )
-            # print(f"Acc: {calculate_accuracy(predictions, labels_batch, 2)}%")
-        # show_random_bad_prediction(inputs_batch, predictions, labels_batch)
-        # show_random_good_prediction(inputs_batch, predictions, labels_batch)
     return predictions
 
 
